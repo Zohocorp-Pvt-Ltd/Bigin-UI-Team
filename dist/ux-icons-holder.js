@@ -21,6 +21,7 @@ const uxIconsHTML = `
                     }
                 </style>
             </defs>
+                
 
             <g id="ZB_Empty_Feeds_ref">
                 <rect width="60" height="60" rx="10" fill="white" />
@@ -122,6 +123,8 @@ const uxIconsHTML = `
                 <use href="#ZB_Files_Link_ref"></use>
             </symbol> 
         </svg>
+        
+        
 </div>
 
 `;
