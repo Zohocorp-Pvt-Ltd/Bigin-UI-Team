@@ -1,5 +1,5 @@
 const iconsArray = `
-    iconsArray: [
+     [
         {
             name: 'Common', api_name: 'common', icons: [
                 { iconName: 'ZB_Copy', iconClass: 'zb16' },
