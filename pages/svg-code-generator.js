@@ -122,6 +122,7 @@ function initiateSVGCodeGenerator() {
             return alert('No SVG code generated. Please upload an SVG file first.');
         }
         var svgCode = output.value;
+        iconSorceHTMl = `<template tag-name="ux-icons-holder"> \n ${uxIconsHTML.replace('//add-here', svgCode)} \n </template>`;
         svgCode += `//update-here`; // Placeholder for appending to icons file
         var updatedIconSVG = `const uxIconsHTML = \`${uxIconsHTML.replace('//add-here', svgCode)}\``;
         updatedIconSVG = updatedIconSVG.replace('//update-here', '//add-here\n\n'); // Remove placeholder
