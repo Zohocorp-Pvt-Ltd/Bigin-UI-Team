@@ -86,6 +86,7 @@
         var newCategoryInput = document.getElementById('new-category-input');
         var iconsAdded = [];
         var iconSorceHTMl='';
+        var iconsArrayLatest = JSON.parse(JSON.stringify(iconsArray));
         svgContainer.innerHTML = uxIconsHTML;
         displayIcons();
 
@@ -146,7 +147,7 @@
             const files = [
                 {
                     path: 'dist/icons-array.js',
-                    content: `const iconsArray = ${JSON.stringify(iconsArray)}`
+                    content: `var iconsArray = ${JSON.stringify(iconsArray)}`
                 },
                 {
                     path: 'dist/ux-icons-holder.js',
@@ -210,12 +211,14 @@
                 });
 
                 alert("✅ All files updated in a single commit!");
+                iconsListParent.classList.toggle('dN');
+                svgCodeContainer.classList.toggle('dN');
+                iconsArrayLatest = JSON.parse(JSON.stringify(iconsArray));
             } catch (error) {
                 console.error("❌ GitHub upload failed:", error.message);
                 alert("❌ GitHub upload failed. Check console for details.");
+                iconsArray = JSON.parse(JSON.stringify(iconsArrayLatest));
             }
-            iconsListParent.classList.toggle('dN');
-            svgCodeContainer.classList.toggle('dN');
         }
 
         function displayIcons() {
