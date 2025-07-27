@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: center;
     padding: 10px;
-    margin-left: 10px;
+    /* margin-left: 10px; */
     border-radius: 6px;
     transition: .2s all;
     border: 1px solid transparent;

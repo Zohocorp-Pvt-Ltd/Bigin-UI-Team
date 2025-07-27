@@ -1,0 +1,36 @@
+name: Update Icons Array
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-icons:
+    runs-on: ubuntu-latest
+
+    if: contains(github.event.head_commit.message, 'Pushing latest icon updates from local changes')
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Run icon updater
+        run: |
+          echo "Running because commit message contains 'Pushing latest icon updates from local changes'"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Run conversion script
+        run: node scripts/build.js
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add dist/ux-icons-holder.js
+          git diff --cached --quiet || git commit -m "🚀 Auto-generated ux-icons-holder.js from HTML"
+          git push

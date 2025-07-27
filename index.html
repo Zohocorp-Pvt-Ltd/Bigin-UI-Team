@@ -33,20 +33,19 @@
             </div>
         </div>
         <div class="icon-list-wrapper p20 pT15">
-            <div id="add-new-icon">Add new icon</div>
+            <div id="add-new-icon" onclick="addNewIcon()">Add new icon</div>
             <div class="helpdoc-icon-category" id="icons-display"></div>
         </div>
-        <div class="icon-detail-wrapper  p20 pT15 flexDirColumn" lyte-if="{{selectedIcon}}">
-            <ux-icons icon-name="ZB_Close" icon-class="zb10 pA r20 cP t20"
-                onclick="{{action('closeIconPreview')}}"></ux-icons>
+        <div class="icon-detail-wrapper dN p20 pT15 flexDirColumn">
+            <svg class="svg-icons zb10" style="position: absolute;right: 20px;top: 20px;cursor: pointer;" onclick="closeIconPreview()">
+                <use href="#ZB_Close"></use>
+            </svg>
             <div class="pB40 headM">Data</div>
             <div class="helpdoc-icon-item preview mB40">
-                <ux-icons icon-name="{{selectedIcon.iconName}}"
-                    icon-class="{{if(selectedIcon.iconClass, selectedIcon.iconClass, 'zb60')}}"></ux-icons>
             </div>
             <div class="helpdoc-icon-name mB40">
                 <span class="headS pB20 mR5">Icon Name:</span>
-                {{selectedIcon.iconName}}
+                <span class="selected-icon-name"></span>
             </div>
             <pre class="code-snippet">
             <div class="flex-center-v mB8">  
@@ -85,20 +84,10 @@
         var categorySelect = document.getElementById('icon-category');
         var newCategoryInput = document.getElementById('new-category-input');
         var iconsAdded = [];
-        var iconSorceHTMl='';
+        var iconSourceHTML='';
         var iconsArrayLatest = JSON.parse(JSON.stringify(iconsArray));
         svgContainer.innerHTML = uxIconsHTML;
         displayIcons();
-
-        addNewIconBtn.addEventListener('click', function () {
-            iconsListParent.classList.toggle('dN');
-            svgCodeContainer.classList.toggle('dN');
-            svgCodeContainer.innerHTML = svgGeneratorContent;
-            if (!svgCodeContainer.classList.contains('dN')) {
-                initiateSVGCodeGenerator();
-            }
-        });
-
 
         // function jsToJsonCompatible(jsStr) {
         //     return jsStr
@@ -155,7 +144,7 @@
                 },
                 {
                     path: 'icon-source/ux-icons-holder.html',
-                    content: iconSorceHTMl
+                    content: iconSourceHTML
                 }
             ];
 
@@ -231,6 +220,8 @@
 
                 const iconsContainer = document.createElement('div');
                 iconsContainer.className = 'flex';
+                iconsContainer.style.flexWrap = 'wrap';
+                iconsContainer.style.gap = '10px';
 
                 cat.icons.forEach(icon => {
                     const iconItem = document.createElement('div');
@@ -248,6 +239,27 @@
                 categoryDiv.appendChild(iconsContainer);
                 iconsDisplay.appendChild(categoryDiv);
             });
+        }
+        function displaySelectedIcon() {
+            var iconDetailWrapper = document.querySelector('.icon-detail-wrapper');
+            var previewItem = document.querySelector('.helpdoc-icon-item.preview');
+            var selectedIconName = document.querySelector('.selected-icon-name');
+            iconDetailWrapper.classList.remove('dN');
+            previewItem.innerHTML = `<svg class="svg-icons ${selectedIcon.iconClass}">
+                <use href="#${selectedIcon.iconName}"></use>
+            </svg>`;
+            selectedIconName.textContent = selectedIcon.iconName;
+        }
+        function closeIconPreview() {
+            document.querySelector('.icon-detail-wrapper').classList.add('dN');
+        }
+        function addNewIcon() {
+            iconsListParent.classList.toggle('dN');
+            svgCodeContainer.classList.toggle('dN');
+            svgCodeContainer.innerHTML = svgGeneratorContent;
+            if (!svgCodeContainer.classList.contains('dN')) {
+                initiateSVGCodeGenerator();
+            }
         }
 
 
