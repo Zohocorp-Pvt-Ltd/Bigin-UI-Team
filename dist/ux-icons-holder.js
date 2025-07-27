@@ -279,7 +279,20 @@ const uxIconsHTML = `
     <use href="#ZB_Files_Document_ref"></use>
 </symbol>
 
+<g id="ZB_Files_Video_ref" fill="none">
+<circle cx="15" cy="15" r="14" fill="#F1D0E6"/>
+<path d="M11.5 14.8332V13.0862C11.5 10.7569 13.1851 9.88344 15.2668 10.951L16.8528 11.9216L18.4388 12.8921C20.5204 14.0568 20.5204 15.9978 18.4388 17.0654L16.8528 18.036L15.2668 19.0065C13.1851 20.1712 11.5 19.2006 11.5 16.8713V14.8332Z" fill="white"/>
+<path d="M29 15C29 22.732 22.732 29 15 29C7.26801 29 1 22.732 1 15C1 7.26801 7.26801 1 15 1C22.732 1 29 7.26801 29 15Z" stroke="#4B556E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11.5 13.0862C11.5 10.7569 13.1851 9.88344 15.2668 10.951L18.4388 12.8921C20.5204 14.0568 20.5204 15.9978 18.4388 17.0654L15.2668 19.0065C13.1851 20.1712 11.5 19.2006 11.5 16.8713V13.0862Z" stroke="#4B556E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+
+<symbol viewBox="0 0 30 30" id="ZB_Files_Video">
+    <use href="#ZB_Files_Video_ref"></use>
+</symbol>
+
 //add-here
+
+
 
 
 
