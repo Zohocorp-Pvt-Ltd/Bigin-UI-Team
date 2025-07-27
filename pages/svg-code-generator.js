@@ -111,7 +111,7 @@ function initiateSVGCodeGenerator() {
         for (var i = 0; i < iconsAdded.length; i++) {
             for (var j = 0; j < iconsArray.length; j++) {
                 if (iconsArray[j].icons.some(icon => icon.iconName === iconsAdded[i])) {
-                    return alert(`❌ Icon "${iconsAdded[i]}" already exists in category "${iconsArray[j].name}".`);
+                    return alert(`❌ Icon "${iconsAdded[i]}" already exists in category "${iconsArray[j].name}". Please remove duplicate icons.`);
                 }
             }
         }
@@ -225,14 +225,14 @@ function initiateSVGCodeGenerator() {
             svgContainer.innerHTML += `${gCode}\n${symbolCode}\n`;
 
             // Add preview
-            previewWrap.style.display = "inline-block";
+            previewWrap.style.display = "flex"; 
             previewWrap.style.margin = "10px";
-            previewWrap.innerHTML = `
+            previewWrap.innerHTML += `<div style="margin-right:20px;">
             <svg viewBox="${viewBox}" width="80" height="80">
                 <use href="#${symbolId}"></use>
             </svg>
             <div style="text-align:center;font-size:12px">${symbolId}</div>
-        `;
+        </div>`;
             previewContainer.appendChild(previewWrap);
 
             // Show sections
