@@ -108,7 +108,12 @@
         // }
 
         async function uploadFileToGitHub(updatedIconSVG, commitMessage = '💡 Updated icons in a single commit') {
-        
+            
+            const token = prompt("🔒 Paste your GitHub token (not saved anywhere):");
+            if (!token || token.includes('ghp_') === false) {
+                alert("❌ Invalid or missing token.");
+                return;
+            }
             var duplicateIcons =[];
             if(categorySelect.value != 'new') {
                     for(var i =0; i< iconsArray.length; i++){
@@ -134,11 +139,6 @@
                 })
             }
             displayIcons();
-            const token = prompt("🔒 Paste your GitHub token (not saved anywhere):");
-            if (!token || token.includes('ghp_') === false) {
-                alert("❌ Invalid or missing token.");
-                return;
-            }
             const owner = 'Zohocorp-Pvt-Ltd';
             const repo = 'Bigin-UI-Team';
             const branch = 'main';
