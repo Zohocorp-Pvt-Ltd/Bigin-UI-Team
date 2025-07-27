@@ -34,33 +34,7 @@
         </div>
         <div class="icon-list-wrapper p20 pT15">
             <div id="add-new-icon">Add new icon</div>
-            <div class="helpdoc-icon-category">
-                <!-- <% iconsCategory.forEach(function(icon) {%> 
-                <div class="mB50">
-                    <div id="{{icon.api_name}}" class="helpdoc-icon-name pB12 headM">{{icon.name}}</div>
-                    <div class="flex">
-                        <% icon.icons.forEach(function(list) {%>. -->
-                <div
-                    class="helpdoc-icon-item cP {{if(selectedIcon && selectedIcon.iconName === list.iconName, 'active')}}">
-                    <svg class="svg-icons {{iconClass}}">
-                        <use href="#ZB_Empty_Feeds"></use>
-                    </svg>
-
-
-                </div>
-                <div
-                    class="helpdoc-icon-item cP {{if(selectedIcon && selectedIcon.iconName === list.iconName, 'active')}}">
-                    <svg class="svg-icons {{iconClass}}">
-                        <use href="#ZB_Empty_Records"></use>
-                    </svg>
-                </div>
-                <!-- <ux-icons icon-name="{{list.iconName}}"
-                                icon-class="{{if(list.iconClass, list.iconClass, 'zb30')}}"></ux-icons> -->
-                <!--<% }) %>
-                    </div>
-                </div>
-                 <% }) %> -->
-            </div>
+            <div class="helpdoc-icon-category" id="icons-display"></div>
         </div>
         <div class="icon-detail-wrapper  p20 pT15 flexDirColumn" lyte-if="{{selectedIcon}}">
             <ux-icons icon-name="ZB_Close" icon-class="zb10 pA r20 cP t20"
@@ -99,7 +73,6 @@
             </code>
         </pre>
         </div>
-        <button onclick="uploadFileToGitHub()">Push Changes to Private Repo</button>
     </div>
 
 
@@ -108,8 +81,12 @@
         const svgContainer = document.getElementById('svg-container');
         const svgCodeContainer = document.getElementById('svg-code-generator');
         const iconsListParent = document.getElementById('icons-list-parent');
+        const iconsDisplay = document.getElementById('icons-display');
+        var categorySelect = document.getElementById('icon-category');
+        var newCategoryInput = document.getElementById('new-category-input');
+        var iconsAdded = [];
         svgContainer.innerHTML = uxIconsHTML;
-
+        displayIcons();
 
         addNewIconBtn.addEventListener('click', function () {
             iconsListParent.classList.toggle('dN');
@@ -130,6 +107,32 @@
         // }
 
         async function uploadFileToGitHub(updatedIconSVG, commitMessage = '💡 Updated icons in a single commit') {
+        
+            var duplicateIcons =[];
+            if(categorySelect.value != 'new') {
+                    for(var i =0; i< iconsArray.length; i++){
+                        var icon = iconsArray[i];
+                    if (icon.api_name === categorySelect.value) {
+                        iconsAdded.forEach((iconName) => {
+                                icon.icons.push({
+                                    iconName: iconName,
+                                    iconClass: 'zb30'
+                                });
+                        });
+                        break;
+                    }
+                };
+            } else {
+                iconsArray.push({
+                    name: newCategoryInput.value,
+                    api_name: newCategoryInput.value.toLowerCase().replace(/\s+/g, '_'),
+                    icons: iconsAdded.map(iconName => ({
+                        iconName: iconName,
+                        iconClass: 'zb30'
+                    }))
+                })
+            }
+            displayIcons();
             const token = prompt("🔒 Paste your GitHub token (not saved anywhere):");
             if (!token || token.includes('ghp_') === false) {
                 alert("❌ Invalid or missing token.");
@@ -208,7 +211,34 @@
             }
         }
 
+        function displayIcons() {
+            iconsDisplay.innerHTML = ''; // Clear previous icons
+            iconsArray.forEach(cat => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'helpdoc-icon-name pB12 headM';
+                categoryDiv.id = cat.api_name;
+                categoryDiv.textContent = cat.name;
 
+                const iconsContainer = document.createElement('div');
+                iconsContainer.className = 'flex';
+
+                cat.icons.forEach(icon => {
+                    const iconItem = document.createElement('div');
+                    iconItem.className = `helpdoc-icon-item cP`;
+                    iconItem.innerHTML = `<svg class="svg-icons ${icon.iconClass}">
+                        <use href="#${icon.iconName}"></use>
+                    </svg>`;
+                    iconItem.addEventListener('click', () => {
+                        selectedIcon = icon;
+                        displaySelectedIcon();
+                    });
+                    iconsContainer.appendChild(iconItem);
+                });
+
+                categoryDiv.appendChild(iconsContainer);
+                iconsDisplay.appendChild(categoryDiv);
+            });
+        }
 
 
     </script>
