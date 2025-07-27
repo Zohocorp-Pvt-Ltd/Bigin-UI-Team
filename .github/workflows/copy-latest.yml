@@ -12,8 +12,11 @@ jobs:
     if: contains(github.event.head_commit.message, 'Pushing latest icon updates from local changes')
 
     steps:
+
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.REPO_PUSH_TOKEN }}
 
       - name: Run icon updater
         run: |
@@ -37,10 +40,9 @@ jobs:
         env:
           TOKEN: ${{ secrets.REPO_PUSH_TOKEN }}
         run: |
-          git config user.name "Your GitHub Username"
-          git config user.email "you@example.com"
-          git remote set-url origin https://x-access-token:${TOKEN}@github.com/Zohocorp-Pvt-Ltd/Bigin-UI-Team.git
+          git config user.name "hithesh-m-20851"
+          git config user.email "your-email@example.com"
           git add dist/ux-icons-holder.js
           git diff --cached --quiet || git commit -m "🚀 Auto-generated ux-icons-holder.js from HTML"
-          git push origin HEAD:main
+          git push
 
