@@ -209,6 +209,8 @@
                 console.error("❌ GitHub upload failed:", error.message);
                 alert("❌ GitHub upload failed. Check console for details.");
             }
+            iconsListParent.classList.toggle('dN');
+            svgCodeContainer.classList.toggle('dN');
         }
 
         function displayIcons() {
