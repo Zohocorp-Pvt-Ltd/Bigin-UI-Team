@@ -40,10 +40,16 @@
 #           name: Auto Commit Specific Files
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'dist/**'
+   workflow_dispatch:
+    inputs:
+      commit_message:
+        description: 'Message to use in commit'
+        required: true
+        default: 'Manual sync triggered'
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - 'dist/**'
 
 jobs:
   commit-specific:
