@@ -28,6 +28,8 @@ jobs:
         run: node scripts/build.js
 
       - name: Commit and push changes
+        env:
+          TOKEN: ${{ secrets.REPO_PUSH_TOKEN }}
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
