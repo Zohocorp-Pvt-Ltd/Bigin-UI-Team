@@ -19,7 +19,7 @@ jobs:
       - name: Checkout private repo
         uses: actions/checkout@v3
         with:
-          repository: your-org/icons-private-repo
+          repository: Zohocorp-Pvt-Ltd/Bigin-UI-Team-Private
           token: ${{ secrets.PRIVATE_REPO_PUSH_TOKEN }}
           path: private-repo
 
