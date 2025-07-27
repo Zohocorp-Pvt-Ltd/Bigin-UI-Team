@@ -41,6 +41,9 @@ body {
     flex-direction: column;
 }
 
+.dN {
+    display: none;
+}
 .p20 {
     padding: 20px;
 }

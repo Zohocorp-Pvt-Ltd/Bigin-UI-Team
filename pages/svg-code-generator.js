@@ -10,6 +10,9 @@ const svgGeneratorContent= `<div class="p20">
             <div style="display: flex;justify-content: space-between;align-items: center;">
                 <div style="font-weight: 600;">Generated Code:</div>
                 <div id="copyToClipboard" style="display: none;" class="copy-to-clipboard">Copy</div>
+                <button id="saveToIconsFile" class="copy-to-clipboard" style="margin-top: 10px;">
+                    Save to Icons File
+                </button>
             </div>
             <textarea class="svg-ouput" id="output" readonly></textarea>
         </div>
@@ -30,6 +33,7 @@ function initiateSVGCodeGenerator() {
         const preview = document.getElementById('symbol-preview');
         const copyToClipboard = document.getElementById('copyToClipboard');
         const previewUse = preview.querySelector('use');
+        const saveToIconsFile = document.getElementById('saveToIconsFile');
 
         dropArea.addEventListener('click', () => fileInput.click());
 
@@ -63,6 +67,14 @@ function initiateSVGCodeGenerator() {
                 alert('Code copied to clipboard!');
             })
         });
+
+        saveToIconsFile.addEventListener('click', async () => {
+            var svgCode = output.value;
+            svgCode += `//update-here`; // Placeholder for appending to icons file
+            var updatedIconSVG = `const uxIconsHTML = \`${uxIconsHTML.replace('//add-here', svgCode)}\``;
+            updatedIconSVG = updatedIconSVG.replace('//update-here', '//add-here\n\n'); // Remove placeholder
+            uploadFileToGitHub(updatedIconSVG);
+});
 
         function processSVG(file) {
             const reader = new FileReader();
