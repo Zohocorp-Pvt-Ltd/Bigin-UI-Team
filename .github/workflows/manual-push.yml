@@ -1,38 +1,73 @@
-name: Push to Private Repo on Dispatch
+# name: Push to Private Repo on Dispatch
+
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       commit_message:
+#         description: 'Message to use in commit'
+#         required: true
+#         default: 'Manual sync triggered'
+
+# jobs:
+#   push:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout public repo
+#         uses: actions/checkout@v3
+
+#       - name: Checkout private repo
+#         uses: actions/checkout@v3
+#         with:
+#           repository: Zohocorp-Pvt-Ltd/Bigin-UI-Team-Private
+#           token: ${{ secrets.PRIVATE_REPO_PUSH_TOKEN }}
+#           path: private-repo
+
+#       - name: Copy updated files to private repo
+#         run: |
+#           cp -r icons private-repo/
+#           cp -r scripts private-repo/
+
+#       - name: Commit and push
+#         run: |
+#           cd private-repo
+#           git config user.name "GitHub Sync Bot"
+#           git config user.email "actions@github.com"
+#           git add .
+#           git commit -m "${{ github.event.inputs.commit_message }}" || echo "No changes"
+#           git push
+
+#           name: Auto Commit Specific Files
 
 on:
-  workflow_dispatch:
-    inputs:
-      commit_message:
-        description: 'Message to use in commit'
-        required: true
-        default: 'Manual sync triggered'
+  push:
+    branches: [main]
+    paths:
+      - 'dist/**'
 
 jobs:
-  push:
+  commit-specific:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout public repo
-        uses: actions/checkout@v3
-
-      - name: Checkout private repo
+      - name: Checkout current repo
         uses: actions/checkout@v3
         with:
-          repository: Zohocorp-Pvt-Ltd/Bigin-UI-Team-Private
-          token: ${{ secrets.PRIVATE_REPO_PUSH_TOKEN }}
-          path: private-repo
+          persist-credentials: true
 
-      - name: Copy updated files to private repo
+      - name: Setup Git config
         run: |
-          cp -r icons private-repo/
-          cp -r scripts private-repo/
-
-      - name: Commit and push
-        run: |
-          cd private-repo
-          git config user.name "GitHub Sync Bot"
+          git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add .
-          git commit -m "${{ github.event.inputs.commit_message }}" || echo "No changes"
-          git push
+
+      - name: (Optional) Modify files
+        run: |
+          echo "// updated at $(date)" >> dist/icons-array.js
+
+      - name: Commit and push specific files
+        run: |
+          git add dist/icons-array.js dist/icons-style.css
+          git diff --cached --quiet && echo "✅ No changes to commit" || (
+            git commit -m "Auto update specific files via GitHub Action"
+            git push
+          )
