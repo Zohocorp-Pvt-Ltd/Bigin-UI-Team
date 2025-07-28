@@ -192,7 +192,15 @@ const uxIconsHTML = `
 
 
 
+<g id="Vector_ref" fill="none">
+<path d="M11.89 6.75L8.59003 10.05L7.39002 8.15L4.89002 10.65M9.70956 6.1695H12.4705V8.9305M11.9 16H5C2.79999 16 1 14.2 1 12V5C1 2.8 2.79999 1 5 1H11.9C14.1 1 15.9 2.8 15.9 5V12C15.9 14.2 14.1 16 11.9 16Z" stroke="#4B556A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+
+<symbol viewBox="0 0 17 17" id="Vector">
+    <use href="#Vector_ref"></use>
+</symbol>
+
 //add-here
 </svg>
 </div>
-`;
+`
