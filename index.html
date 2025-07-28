@@ -208,7 +208,11 @@
                 alert(`✅ icon${iconsAdded.length > 1 ? 's' : ''} added successfully!`);
                 iconsListParent.classList.toggle('dN');
                 svgCodeContainer.classList.toggle('dN');
-                uxIconsHTML = uxIconsHTML.replace('//update-here', svgCode);
+                if(uxIconsHTML.includes('//update-here')) {
+                    uxIconsHTML = uxIconsHTML.replace('//update-here', svgCode);
+                } else {
+                    uxIconsHTML = uxIconsHTML.replace('//add-here', svgCode);
+                }
                 iconsArrayLatest = JSON.parse(JSON.stringify(iconsArray));
             } catch (error) {
                 console.error("❌ GitHub upload failed:", error.message);
