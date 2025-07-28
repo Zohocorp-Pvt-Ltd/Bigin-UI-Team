@@ -97,13 +97,19 @@
         //         .replace(/\/\/.*$/gm, '');                      // Remove comments
         // }
 
-        async function uploadFileToGitHub(updatedIconSVG, commitMessage = '💡 Updated icons in a single commit') {
+        async function uploadFileToGitHub(svgCode) {
             
             const token = prompt("🔒 Paste your GitHub token (not saved anywhere):");
             if (!token || token.includes('ghp_') === false) {
                 alert("❌ Invalid or missing token.");
                 return;
             }
+
+            iconSourceHTML = `<template tag-name="ux-icons-holder"> \n ${uxIconsHTML.replace('//add-here', svgCode)} \n </template>`;
+            svgCode += `//update-here`; // Placeholder for appending to icons file
+            var updatedIconSVG = `var uxIconsHTML = \`${uxIconsHTML.replace('//add-here', svgCode)}\``;
+            updatedIconSVG = updatedIconSVG.replace('//update-here', '//add-here'); // Remove placeholder
+
             var duplicateIcons =[];
             if(categorySelect.value != 'new') {
                     for(var i =0; i< iconsArray.length; i++){
@@ -187,7 +193,7 @@
                 const newCommit = await api(`https://api.github.com/repos/${owner}/${repo}/git/commits`, {
                     method: 'POST',
                     body: JSON.stringify({
-                        message: commitMessage,
+                        message: 'Added new icons to source file',
                         tree: tree.sha,
                         parents: [latestCommitSha]
                     })
@@ -199,10 +205,10 @@
                     body: JSON.stringify({ sha: newCommit.sha })
                 });
 
-                alert("✅ All files updated in a single commit!");
+                alert(`✅ icon${iconsAdded.length > 1 ? 's' : ''} added successfully!`);
                 iconsListParent.classList.toggle('dN');
                 svgCodeContainer.classList.toggle('dN');
-                uxIconsHTML = updatedIconSVG;
+                uxIconsHTML = uxIconsHTML.replace('//add-here', svgCode);
                 iconsArrayLatest = JSON.parse(JSON.stringify(iconsArray));
             } catch (error) {
                 console.error("❌ GitHub upload failed:", error.message);

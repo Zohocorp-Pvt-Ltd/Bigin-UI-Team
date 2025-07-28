@@ -121,12 +121,12 @@ function initiateSVGCodeGenerator() {
         if (output.value.trim() === '') {
             return alert('No SVG code generated. Please upload an SVG file first.');
         }
-        var svgCode = output.value;
-        iconSourceHTML = `<template tag-name="ux-icons-holder"> \n ${uxIconsHTML.replace('//add-here', svgCode)} \n </template>`;
-        svgCode += `//update-here`; // Placeholder for appending to icons file
-        var updatedIconSVG = `var uxIconsHTML = \`${uxIconsHTML.replace('//add-here', svgCode)}\``;
-        updatedIconSVG = updatedIconSVG.replace('//update-here', '//add-here'); // Remove placeholder
-        uploadFileToGitHub(updatedIconSVG);
+        // var svgCode = output.value;
+        // iconSourceHTML = `<template tag-name="ux-icons-holder"> \n ${uxIconsHTML.replace('//add-here', svgCode)} \n </template>`;
+        // svgCode += `//update-here`; // Placeholder for appending to icons file
+        // var updatedIconSVG = `var uxIconsHTML = \`${uxIconsHTML.replace('//add-here', svgCode)}\``;
+        // updatedIconSVG = updatedIconSVG.replace('//update-here', '//add-here'); // Remove placeholder
+        uploadFileToGitHub(output.value);
     });
 
     //         function processSVG(file) {

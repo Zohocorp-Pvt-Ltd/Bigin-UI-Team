@@ -1,4 +1,4 @@
-var uxIconsHTML = `var uxIconsHTML = `
+var uxIconsHTML = `
 <div style="visibility: hidden;height:0;width:0;pointer-events: none;">
         <svg xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -163,4 +163,4 @@ var uxIconsHTML = `var uxIconsHTML = `
 //add-here
 </svg>
 </div>
-``
+`
