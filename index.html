@@ -213,6 +213,7 @@
                 } else {
                     uxIconsHTML = uxIconsHTML.replace('//add-here', svgCode);
                 }
+                uxIconsHTML = uxIconsHTML.replace('//update-here', '//add-here');
                 iconsArrayLatest = JSON.parse(JSON.stringify(iconsArray));
             } catch (error) {
                 console.error("❌ GitHub upload failed:", error.message);
