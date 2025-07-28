@@ -226,6 +226,24 @@ const uxIconsHTML = `
     <use href="#Group_17445_ref"></use>
 </symbol>
 
+<g id="Group_17446_ref" fill="none">
+<path d="M13 26C20.1797 26 26 20.1797 26 13C26 5.8203 20.1797 0 13 0C5.8203 0 0 5.8203 0 13C0 20.1797 5.8203 26 13 26Z" fill="#1AB16D"/>
+<path d="M19.18 9L10.9627 16.9378L8 13.6956" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+
+<symbol viewBox="0 0 26 26" id="Group_17446">
+    <use href="#Group_17446_ref"></use>
+</symbol>
+
+<g id="Group_17448_ref" fill="none">
+<path d="M13 26C20.1797 26 26 20.1797 26 13C26 5.8203 20.1797 0 13 0C5.8203 0 0 5.8203 0 13C0 20.1797 5.8203 26 13 26Z" fill="#FD6369"/>
+<path d="M9 9L17 17.0001M9 17.0001L17 9" stroke="white" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
+</g>
+
+<symbol viewBox="0 0 26 26" id="Group_17448">
+    <use href="#Group_17448_ref"></use>
+</symbol>
+
 //add-here
 </svg>
 </div>
