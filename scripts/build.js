@@ -26,6 +26,6 @@ const safeHTML = templateInnerContent
   .replace(/`/g, '\\`')
   .replace(/\$\{/g, '\\${');
 
-const htmlOutput = `const uxIconsHTML = \`\n${safeHTML}\n\`;\n`;
+const htmlOutput = `var uxIconsHTML = \`\n${safeHTML}\n\`;\n`;
 fs.writeFileSync(outputPath, htmlOutput, 'utf8');
 console.log('✅ Converted ux-icons-holder.html → ux-icons-holder.js');

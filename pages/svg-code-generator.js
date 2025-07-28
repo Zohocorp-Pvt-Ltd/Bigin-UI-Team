@@ -124,7 +124,7 @@ function initiateSVGCodeGenerator() {
         var svgCode = output.value;
         iconSourceHTML = `<template tag-name="ux-icons-holder"> \n ${uxIconsHTML.replace('//add-here', svgCode)} \n </template>`;
         svgCode += `//update-here`; // Placeholder for appending to icons file
-        var updatedIconSVG = `const uxIconsHTML = \`${uxIconsHTML.replace('//add-here', svgCode)}\``;
+        var updatedIconSVG = `var uxIconsHTML = \`${uxIconsHTML.replace('//add-here', svgCode)}\``;
         updatedIconSVG = updatedIconSVG.replace('//update-here', '//add-here'); // Remove placeholder
         uploadFileToGitHub(updatedIconSVG);
     });
