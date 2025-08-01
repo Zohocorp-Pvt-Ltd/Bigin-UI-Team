@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SVG Symbol Ref Generator with Preview</title>
+    <link rel="stylesheet" type="text/css" href="./styles/icons.css">
+    <link rel="stylesheet" type="text/css" href="./styles/base.css">
+    <link rel="stylesheet" type="text/css" href="./styles/new-svg.css">
+    <link rel="stylesheet" type="text/css" href="dist/icons-style.css">
+
+    <script src="dist/icons-array.js"></script>
+    <script src="dist/ux-icons-holder.js"></script>
+    <script src="pages/svg-code-generator.js" defer></script>
+</head>
+
+<body>
+    <div id="svg-container"></div>
+    <div id="svg-code-generator" class="dN"></div>
+    <div id="icons-list-parent" class="icons-list-parent-wrapper flex">
+
+        <div class="helpdoc-propeties-sec flexcolumn p20 pT15">
+            <div class="m0 icon-title mB10">Icons</div>
+            <div class="flexcolumnchild">
+                <ul id="iconsCategory" class="helpdoc-icon-list flexDirColumn">
+                    <!-- <% iconsCategory.forEach(function(icon) {%>
+                    <li class="left-sec-btn-categ {{if(selectedCategory === icon.api_name, 'categ-active')}}"
+                        onclick="{{action ('changeIconCategory', icon)}}">
+                        <span class="helpdoc-icon-name">{{icon.name}}</span>
+                    </li>
+                    <% }) %> -->
+                </ul>
+            </div>
+        </div>
+        <div class="icon-list-wrapper p20 pT15">
+            <div id="add-new-icon" onclick="addNewIcon()">Add new icon</div>
+            <div class="helpdoc-icon-category" id="icons-display"></div>
+        </div>
+        <div class="icon-detail-wrapper dN p20 pT15 flexDirColumn">
+            <svg class="svg-icons zb10" style="position: absolute;right: 20px;top: 20px;cursor: pointer;" onclick="closeIconPreview()">
+                <use href="#ZB_Close"></use>
+            </svg>
+            <div class="pB40 headM">Data</div>
+            <div class="helpdoc-icon-item preview mB40">
+            </div>
+            <div class="helpdoc-icon-name mB40">
+                <span class="headS pB20 mR5">Icon Name:</span>
+                <span class="selected-icon-name"></span>
+            </div>
+            <pre class="code-snippet">
+            <div class="flex-center-v mB8">  
+                <span class="taskbar"> 
+                    <span class="barOne bar"></span>
+                    <span class="barTwo bar"></span>
+                    <span class="barThree bar"></span>
+                </span> 
+                <span class="mLauto mR5 icon-hover-dark-parent cP" lt-prop-title="Copy" onclick="{{action('copySampleDataCode')}}">  
+                    <ux-icons icon-name="ZB_Copy" icon-class="zb16 hd-copy-codesnip-icon icon-hover-dark"></ux-icons>
+                    <!-- <i class="bigin-sprite icon-copy-sm icon-copy-sm-mask hd-copy-codesnip-icon icon-hover-dark"></i> -->
+                </span>
+            </div>
+            <code id="dataSecCodeSnippet">
+                <span class="token punctuation">&lt;</span>
+                <span class="token tag">ux-icons</span> 
+                <span class="token attrname">icon-name =</span>
+                <span class="token punctuation">"</span>
+                <span class="token attrvalue">{{selectedIcon.iconName}}</span>
+                <span class="token punctuation">"</span>
+                <span class="token punctuation">&lt;/</span>
+                <span class="token tag">ux-icons</span>
+                <span class="token punctuation">&gt;</span>
+            </code>
+        </pre>
+        </div>
+    </div>
+
+
+    <script>
+        const addNewIconBtn = document.getElementById('add-new-icon');
+        const svgContainer = document.getElementById('svg-container');
+        const svgCodeContainer = document.getElementById('svg-code-generator');
+        const iconsListParent = document.getElementById('icons-list-parent');
+        const iconsDisplay = document.getElementById('icons-display');
+        var categorySelect = document.getElementById('icon-category');
+        var newCategoryInput = document.getElementById('new-category-input');
+        var iconsAdded = [];
+        var iconSourceHTML='';
+        var iconsArrayLatest = JSON.parse(JSON.stringify(iconsArray));
+        svgContainer.innerHTML = uxIconsHTML;
+        displayIcons();
+
+        // function jsToJsonCompatible(jsStr) {
+        //     return jsStr
+        //         .replace(/([{,])\s*(\w+)\s*:/g, '$1 "$2":')     // Quote keys
+        //         .replace(/'/g, '"')                             // Convert single quotes to double
+        //         .replace(/,\s*([}\]])/g, '$1')                  // Remove trailing commas
+        //         .replace(/\/\/.*$/gm, '');                      // Remove comments
+        // }
+
+        async function uploadFileToGitHub(svgCode) {
+            
+            const token = prompt("🔒 Paste your GitHub token (not saved anywhere):");
+            if (!token || token.includes('ghp_') === false) {
+                alert("❌ Invalid or missing token.");
+                return;
+            }
+
+            iconSourceHTML = `<template tag-name="ux-icons-holder"> \n ${uxIconsHTML.replace('//add-here', svgCode)} \n </template>`;
+            svgCode += `//update-here`; // Placeholder for appending to icons file
+            var updatedIconSVG = `var uxIconsHTML = \`${uxIconsHTML.replace('//add-here', svgCode)}\``;
+            updatedIconSVG = updatedIconSVG.replace('//update-here', '//add-here'); // Remove placeholder
+
+            var duplicateIcons =[];
+            if(categorySelect.value != 'new') {
+                    for(var i =0; i< iconsArray.length; i++){
+                        var icon = iconsArray[i];
+                    if (icon.api_name === categorySelect.value) {
+                        iconsAdded.forEach((iconName) => {
+                                icon.icons.push({
+                                    iconName: iconName,
+                                    iconClass: 'zb30'
+                                });
+                        });
+                        break;
+                    }
+                };
+            } else {
+                iconsArray.push({
+                    name: newCategoryInput.value,
+                    api_name: newCategoryInput.value.toLowerCase().replace(/\s+/g, '_'),
+                    icons: iconsAdded.map(iconName => ({
+                        iconName: iconName,
+                        iconClass: 'zb30'
+                    }))
+                })
+            }
+            displayIcons();
+            const owner = 'Zohocorp-Pvt-Ltd';
+            const repo = 'Bigin-UI-Team';
+            const branch = 'main';
+
+            const files = [
+                {
+                    path: 'dist/icons-array.js',
+                    content: `var iconsArray = ${JSON.stringify(iconsArray)}`
+                },
+                {
+                    path: 'dist/ux-icons-holder.js',
+                    content: updatedIconSVG
+                },
+                {
+                    path: 'icon-source/ux-icons-holder.html',
+                    content: iconSourceHTML
+                }
+            ];
+
+            const headers = {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/vnd.github+json'
+            };
+
+            const api = async (url, options = {}) => {
+                const res = await fetch(url, { headers, ...options });
+                const json = await res.json();
+                if (!res.ok) throw new Error(`${options.method || 'GET'} ${url} failed: ${JSON.stringify(json)}`);
+                return json;
+            };
+
+            try {
+                // 1. Get latest commit and base tree
+                const refData = await api(`https://api.github.com/repos/${owner}/${repo}/git/ref/heads/${branch}`);
+                const latestCommitSha = refData.object.sha;
+
+                const commitData = await api(`https://api.github.com/repos/${owner}/${repo}/git/commits/${latestCommitSha}`);
+                const baseTreeSha = commitData.tree.sha;
+
+                // 2. Create blobs and build tree items
+                const treeItems = await Promise.all(files.map(async ({ path, content }) => {
+                    const blob = await api(`https://api.github.com/repos/${owner}/${repo}/git/blobs`, {
+                        method: 'POST',
+                        body: JSON.stringify({ content, encoding: 'utf-8' })
+                    });
+                    return { path, mode: '100644', type: 'blob', sha: blob.sha };
+                }));
+
+                // 3. Create new tree
+                const tree = await api(`https://api.github.com/repos/${owner}/${repo}/git/trees`, {
+                    method: 'POST',
+                    body: JSON.stringify({ base_tree: baseTreeSha, tree: treeItems })
+                });
+
+                // 4. Create new commit
+                const newCommit = await api(`https://api.github.com/repos/${owner}/${repo}/git/commits`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        message: 'Added new icons to source file',
+                        tree: tree.sha,
+                        parents: [latestCommitSha]
+                    })
+                });
+
+                // 5. Update ref
+                await api(`https://api.github.com/repos/${owner}/${repo}/git/refs/heads/${branch}`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ sha: newCommit.sha })
+                });
+
+                alert(`✅ icon${iconsAdded.length > 1 ? 's' : ''} added successfully!`);
+                iconsListParent.classList.toggle('dN');
+                svgCodeContainer.classList.toggle('dN');
+                if(uxIconsHTML.includes('//update-here')) {
+                    uxIconsHTML = uxIconsHTML.replace('//update-here', svgCode);
+                } else {
+                    uxIconsHTML = uxIconsHTML.replace('//add-here', svgCode);
+                }
+                uxIconsHTML = uxIconsHTML.replace('//update-here', '//add-here');
+                iconsArrayLatest = JSON.parse(JSON.stringify(iconsArray));
+            } catch (error) {
+                console.error("❌ GitHub upload failed:", error.message);
+                alert("❌ GitHub upload failed. Check console for details.");
+                iconsArray = JSON.parse(JSON.stringify(iconsArrayLatest));
+            }
+        }
+
+        function displayIcons() {
+            iconsDisplay.innerHTML = ''; // Clear previous icons
+            iconsArray.forEach(cat => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'helpdoc-icon-name pB12 headM';
+                categoryDiv.id = cat.api_name;
+                categoryDiv.textContent = cat.name;
+
+                const iconsContainer = document.createElement('div');
+                iconsContainer.className = 'flex';
+                iconsContainer.style.flexWrap = 'wrap';
+                iconsContainer.style.gap = '10px';
+
+                cat.icons.forEach(icon => {
+                    const iconItem = document.createElement('div');
+                    iconItem.className = `helpdoc-icon-item cP`;
+                    iconItem.innerHTML = `<svg class="svg-icons ${icon.iconClass}">
+                        <use href="#${icon.iconName}"></use>
+                    </svg>`;
+                    iconItem.addEventListener('click', () => {
+                        selectedIcon = icon;
+                        displaySelectedIcon();
+                    });
+                    iconsContainer.appendChild(iconItem);
+                });
+
+                categoryDiv.appendChild(iconsContainer);
+                iconsDisplay.appendChild(categoryDiv);
+            });
+        }
+        function displaySelectedIcon() {
+            var iconDetailWrapper = document.querySelector('.icon-detail-wrapper');
+            var previewItem = document.querySelector('.helpdoc-icon-item.preview');
+            var selectedIconName = document.querySelector('.selected-icon-name');
+            iconDetailWrapper.classList.remove('dN');
+            previewItem.innerHTML = `<svg class="svg-icons ${selectedIcon.iconClass}">
+                <use href="#${selectedIcon.iconName}"></use>
+            </svg>`;
+            selectedIconName.textContent = selectedIcon.iconName;
+        }
+        function closeIconPreview() {
+            document.querySelector('.icon-detail-wrapper').classList.add('dN');
+        }
+        function addNewIcon() {
+            iconsListParent.classList.toggle('dN');
+            svgCodeContainer.classList.toggle('dN');
+            svgCodeContainer.innerHTML = svgGeneratorContent;
+            if (!svgCodeContainer.classList.contains('dN')) {
+                initiateSVGCodeGenerator();
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
