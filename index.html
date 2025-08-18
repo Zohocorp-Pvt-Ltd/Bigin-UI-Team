@@ -4,316 +4,277 @@
 <head>
     <meta charset="UTF-8">
     <title>SVG Symbol Ref Generator with Preview</title>
+    <link rel="stylesheet" type="text/css" href="./styles/icons.css">
+    <link rel="stylesheet" type="text/css" href="./styles/base.css">
+    <link rel="stylesheet" type="text/css" href="./styles/new-svg.css">
     <link rel="stylesheet" type="text/css" href="dist/icons-style.css">
 
+    <script src="dist/icons-array.js"></script>
+    <script src="dist/ux-icons-holder.js"></script>
+    <script src="pages/svg-code-generator.js" defer></script>
 </head>
-<style>
-    .dark-mode-bg {
-        background-color: #000;
-        color: #fff;
-        .svg-icons {
-            --bigin-color-baseStroke: #ffffff;
-            opacity: 0.8;
-        }
-        .icon-container:hover .svg-icons {
-            opacity: 1;
-        }
-    }
-</style>
+
 <body>
-    <div class="svg-container" style="visibility: hidden;height: 0;width: 0;pointer-events: none;">
-        <svg xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <style>
-                    :root {
-                        --bigin-color-primary: #fff;
-                        --bigin-color-baseStroke: #4B556E;
-                        --bigin-color-iconBg: #000;
-                    }
+    <div id="svg-container"></div>
+    <div id="svg-code-generator" class="dN"></div>
+    <div id="icons-list-parent" class="icons-list-parent-wrapper flex">
 
-                    .stroke-icons {
-                        stroke: var(--bigin-color-baseStroke);
-                        transition: background .1s ease-in-out;
-                    }
-
-                    .fill-icons {
-                        fill: var(--bigin-color-baseStroke);
-                        transition: background .1s ease-in-out;
-                    }
-                </style>
-            </defs>
-            <g id="ZB_Notifications_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M5 13.25C5 14.3546 5.89543 15.25 7 15.25C8.10457 15.25 9 14.3546 9 13.25M13.25 9.68555V10.25C13.25 10.8023 12.8023 11.25 12.25 11.25H1.75C1.19772 11.25 0.75 10.8023 0.75 10.25V9.68555C0.75 9.40779 0.865529 9.14256 1.06891 8.95337L2.58112 7.54665C2.78449 7.35747 2.89999 7.09222 2.89999 6.81446V4.84998C2.89999 2.58561 4.73563 0.749985 7 0.749985C9.26437 0.749985 11.1 2.58561 11.1 4.84998V6.81446C11.1 7.09222 11.2155 7.35746 11.4189 7.54665L12.9311 8.95337C13.1345 9.14255 13.25 9.40779 13.25 9.68555Z"
-                    stroke="#4B556E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 14 16" id="ZB_Notifications">
-                <use href="#ZB_Notifications_ref"></use>
-            </symbol>
-
-            <g id="ZB_Signals_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M15.25 8C15.25 12.0041 12.0041 15.25 8 15.25C3.99594 15.25 0.75 12.0041 0.75 8C0.75 3.99594 3.99594 0.75 8 0.75C12.0041 0.75 15.25 3.99594 15.25 8ZM5.2066 7.7373L8.33163 4.16186C8.61224 3.82867 9.16071 4.04652 9.16071 4.48224V7.46817H10.4362C11.0102 7.46817 11.176 7.82699 10.7934 8.26272L7.66833 11.8381C7.38772 12.1713 6.83926 11.9535 6.83926 11.5177V8.53182H5.56375C4.98976 8.53182 4.82395 8.17302 5.2066 7.7373Z"
-                    stroke="#4B556E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_Signals">
-                <use href="#ZB_Signals_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Education_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M3.38309 7.74713L3.37362 12.1863C3.37362 13.1073 4.08425 14.0934 4.95442 14.3835L7.26761 15.1521C7.66644 15.2826 8.32631 15.2826 8.73239 15.1521L11.0456 14.3835C11.9157 14.0934 12.6264 13.1073 12.6264 12.1863V7.74921M15.25 9.58068V5.08068M6.49803 1.08521L1.8642 3.56493C0.3786 4.35995 0.3786 6.13927 1.8642 6.93429L6.49803 9.41401C7.32935 9.862 8.69949 9.862 9.53081 9.41401L14.1416 6.93429C15.6195 6.13927 15.6195 4.36626 14.1416 3.57124L9.53082 1.09152C8.6995 0.637218 7.32935 0.637218 6.49803 1.08521Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_education">
-                <use href="#ZB_Team_Education_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Onboarding_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M10.7401 9.92991C9.7313 9.20923 8.2064 8.75003 6.5 8.75003C3.46243 8.75003 1 10.2051 1 12C1 13.795 3.46243 15.25 6.5 15.25C6.66431 15.25 6.82693 15.2458 6.98758 15.2374M11.5 12.25V15.25M10 13.75H13M9.625 3.875C9.625 5.60089 8.22589 7 6.5 7C4.77411 7 3.375 5.60089 3.375 3.875C3.375 2.14911 4.77411 0.75 6.5 0.75C8.22589 0.75 9.625 2.14911 9.625 3.875Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 14 16" id="ZB_customer_onboarding">
-                <use href="#ZB_Team_Onboarding_ref"></use>
-            </symbol>
-            <symbol viewBox="0 0 14 16" id="ZB_employee_onboarding">
-                <use href="#ZB_Team_Onboarding_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Fundraising_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M10 6.68563C10 5.95917 9.40119 5.375 8.66666 5.375H7.16566C6.52694 5.375 6.00799 5.89176 6.00799 6.52086C6.00799 7.20988 6.32734 7.44953 6.7984 7.60681L9.2016 8.39319C9.67266 8.55047 9.99201 8.79761 9.99201 9.47914C9.99201 10.1157 9.47304 10.625 8.83432 10.625H7.33334C6.59881 10.625 6 10.0408 6 9.31437M8 4.15V5.375M8 10.625V11.85M11.25 15.25H4.75C2.54086 15.25 0.75 13.4591 0.75 11.25V4.75C0.75 2.54086 2.54086 0.75 4.75 0.75H11.25C13.4591 0.75 15.25 2.54086 15.25 4.75V11.25C15.25 13.4591 13.4591 15.25 11.25 15.25Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_startup_fundraising">
-                <use href="#ZB_Team_Fundraising_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Estate_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M3.25002 5.75H5.72857M8.45 15.25H2.29293C1.44469 15.25 0.75 14.5758 0.75 13.7493V2.99047C0.75 1.091 2.17593 0.228259 3.9236 1.0765L7.17032 2.65698C7.87231 2.99772 8.45 3.90396 8.45 4.67245V15.25ZM8.45 15.25L12.9809 15.25C14.5319 15.25 15.25 14.516 15.25 12.9305V10.1559C15.25 10.1045 15.25 10.0604 15.2428 10.0164C15.1997 8.60707 14.4242 8.10794 13.4764 7.89507L12.0187 7.56476L8.78749 6.8234L8.45 6.75M11.85 7.75V10.0845M11.85 10.0845C11.85 10.9835 11.0869 11.7157 10.15 11.7157C9.21311 11.7157 8.45 10.9835 8.45 10.0845M11.85 10.0845C11.85 10.9835 12.6148 11.7157 13.5538 11.7157C14.4625 11.7157 15.2046 11.027 15.25 10.1715M3.25002 8.75H5.72857"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_real_estate">
-                <use href="#ZB_Team_Estate_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Legal_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M4.78439 6.05001L0.859704 13.8C0.520164 14.47 1.00949 15.25 1.76846 15.25H4.44485C4.89424 15.25 5.28372 14.96 5.41354 14.54L8.04998 4.96563M7.94998 4.96563L10.5864 14.54C10.7162 14.96 11.1057 15.25 11.5551 15.25H14.2315C14.9905 15.25 15.4798 14.47 15.1403 13.8L11.2156 6.05001M11.7099 6.21L8.2684 5.00352C8.09269 4.95213 7.90735 4.95213 7.73165 5.00352L4.29015 6.21C3.49212 6.44339 2.78052 5.61462 3.0632 4.781L4.186 1.46997C4.33257 1.03773 4.71566 0.75 5.14456 0.75H10.8555C11.2844 0.75 11.6675 1.03773 11.8141 1.46997L12.9369 4.781C13.2195 5.61461 12.508 6.44339 11.7099 6.21Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-miterlimit="10" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_legal">
-                <use href="#ZB_Team_Legal_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Planner_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M11.8782 9.34091C12.0739 10.5148 12.9543 11.4931 14.1282 11.5909M13.75 5.75005V3.75C13.75 2.09315 12.4068 0.75 10.75 0.75H3.75C2.09315 0.75 0.75 2.09315 0.75 3.75V12.25C0.75 13.9068 2.09315 15.25 3.75 15.25H5.25M3.75 4.75H9.75M3.75 8.5H6.75M14.6221 8.81255C15.5995 9.70388 15.3063 10.3971 14.6221 11.0904L11.0058 14.7548C10.9081 14.8538 10.6149 15.0519 10.4194 15.0519L9.05106 15.25H8.75787C8.46467 15.25 8.17146 14.8539 8.26917 14.4577L8.46466 13.0712C8.46466 12.8731 8.56238 12.675 8.75787 12.477L12.3742 8.81255C13.0583 8.21832 13.7425 7.92122 14.6221 8.81255Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_content_planner">
-                <use href="#ZB_Team_Planner_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Insurance_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M7 5V11M4 8H10M5.93289 0.900517L2.27438 2.20502C1.35972 2.60641 0.75 3.40917 0.75 4.41263V9.83131C0.75 10.8348 1.25811 11.7379 1.96951 12.34L5.1199 14.6479C6.23776 15.4507 7.76214 15.4507 8.88007 14.6479L12.0305 12.34C12.7419 11.7379 13.25 10.8348 13.25 9.83131V4.41263C13.25 3.40917 12.6402 2.6064 11.7256 2.20502L8.06708 0.900517C7.45735 0.699827 6.64422 0.699827 5.93289 0.900517Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 14 16" id="ZB_insurance">
-                <use href="#ZB_Team_Insurance_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Referral_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M14 6.27016V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V6.27016M15.25 7.50001L9.09854 1.44771C8.49183 0.850783 7.50817 0.850783 6.90146 1.44771L0.75 7.50001M8 7.24998V11.75M5.75 9.49998H10.25"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_patient_referral_management">
-                <use href="#ZB_Team_Referral_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Project_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M13.75 5.75V3.75C13.75 2.09315 12.4068 0.75 10.75 0.75H3.75C2.09315 0.75 0.75 2.09315 0.75 3.75V12.25C0.75 13.9068 2.09315 15.25 3.75 15.25H5.75M3.75 4.75H9.75M3.75 8.5H6.75M11.6256 8.25H12.3744C12.5133 8.25 12.6336 8.3261 12.6928 8.44128L12.7143 8.4931L12.7148 8.49451L12.9666 9.25396C12.9992 9.35227 13.0633 9.43511 13.1467 9.49094L13.1837 9.51308L13.3361 9.60024C13.4208 9.65193 13.5213 9.67571 13.6226 9.66478L13.6657 9.65771L14.4445 9.49706C14.5811 9.46941 14.7138 9.51989 14.7957 9.62238L14.8276 9.66949L14.8281 9.6709L15.2004 10.3178C15.2709 10.4439 15.2641 10.5895 15.1938 10.6994L15.1601 10.7441L15.1587 10.7455L14.6302 11.3453C14.5565 11.4291 14.5158 11.5373 14.5158 11.6491V11.8461L14.5177 11.888C14.5252 11.971 14.5554 12.0503 14.6044 12.1174L14.6302 12.15L15.1586 12.7497C15.2632 12.8704 15.2786 13.0396 15.2018 13.1746L14.8281 13.8234C14.756 13.9446 14.6296 14.011 14.5003 14.0052L14.4445 13.9982L13.6657 13.8375L13.6226 13.8305C13.5357 13.8211 13.4494 13.8374 13.3731 13.8748L13.3361 13.895L13.1837 13.9821C13.0951 14.0301 13.0239 14.1067 12.9825 14.2003L12.9666 14.2413L12.7148 15.0008L12.7134 15.004C12.6659 15.1519 12.5319 15.25 12.3744 15.25H11.6256C11.493 15.25 11.3702 15.1752 11.3072 15.0558L11.2842 15.0022L11.0334 14.246L11.0175 14.205C10.982 14.1248 10.9247 14.0574 10.8533 14.0095L10.8163 13.9869L10.6639 13.8997L10.6269 13.8794C10.5506 13.8421 10.4643 13.8258 10.3774 13.8351L10.3343 13.8422L9.55547 14.0034C9.42324 14.0308 9.28738 13.9798 9.20474 13.8776L9.17238 13.8309L9.17191 13.829L8.7982 13.1794C8.7299 13.0593 8.73567 12.9121 8.80618 12.8011L8.83994 12.7563L8.84134 12.7544L9.36978 12.1547C9.4435 12.0709 9.48419 11.9626 9.48419 11.8508V11.6539C9.48419 11.556 9.45274 11.4613 9.39557 11.383L9.36978 11.3505L8.84134 10.7502C8.73727 10.63 8.72155 10.4619 8.79727 10.3272L9.17191 9.6756L9.17238 9.67419C9.23865 9.55767 9.36654 9.489 9.49873 9.49469L9.55547 9.50176L10.3343 9.66289C10.4353 9.68374 10.538 9.6692 10.6269 9.62567L10.6639 9.60494L10.8163 9.51778C10.9048 9.46987 10.9761 9.39362 11.0174 9.30012L11.0334 9.25866L11.2852 8.49967L11.2866 8.4959C11.3342 8.34808 11.4681 8.25 11.6256 8.25Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_project_tracker">
-                <use href="#ZB_Team_Project_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Roadmap_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M4.75 2.75C4.75 3.85457 3.85457 4.75 2.75 4.75C1.64543 4.75 0.75 3.85457 0.75 2.75C0.75 1.64543 1.64543 0.75 2.75 0.75C3.85457 0.75 4.75 1.64543 4.75 2.75ZM4.75 2.75H12.625C14.0748 2.75 15.25 3.92525 15.25 5.375C15.25 6.82475 14.0748 8 12.625 8H8C8.00001 8 3.375 8 3.375 8C1.92525 8 0.75 9.17525 0.75 10.625C0.75 12.0747 1.92525 13.25 3.375 13.25H9.25M9.25 13.25L7.2507 15.25M9.25 13.25L7.2507 11.25M13.25 11.25C12.1454 11.25 11.25 12.1454 11.25 13.25C11.25 14.3546 12.1454 15.25 13.25 15.25C14.3546 15.25 15.25 14.3546 15.25 13.25C15.25 12.1454 14.3546 11.25 13.25 11.25Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_product_roadmap">
-                <use href="#ZB_Team_Roadmap_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Sales_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M4.35211 10.1979L6.76878 7.71929L7.92879 9.60305L11.6479 5.80209M11.6479 5.80209L11.6479 8.55213M11.6479 5.80209H8.89789M11.25 15.25H4.75C2.54086 15.25 0.75 13.4591 0.75 11.25V4.75C0.75 2.54086 2.54086 0.75 4.75 0.75H11.25C13.4591 0.75 15.25 2.54086 15.25 4.75V11.25C15.25 13.4591 13.4591 15.25 11.25 15.25Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_sales_pipeline">
-                <use href="#ZB_Team_Sales_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Press_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M9 2.75V4.36538C9 5.13008 9.61991 5.75 10.3846 5.75H12M4 11.75H10M4 9H7M11 15.25H4C2.34315 15.25 1 13.9068 1 12.25V3.75C1 2.09315 2.34315 0.75 4 0.75H11C12.6568 0.75 14 2.09315 14 3.75V12.25C14 13.9068 12.6568 15.25 11 15.25Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 15 16" id="ZB_press_release">
-                <use href="#ZB_Team_Press_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Patient_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M11 4V2.25C11 1.42157 10.3284 0.75 9.5 0.75H6.5C5.67157 0.75 5 1.42157 5 2.25V4M8 7.125V12.125M5.5 9.625H10.5M12.75 15.25H3.25C1.86929 15.25 0.75 14.1307 0.75 12.75V6.5C0.75 5.11929 1.86929 4 3.25 4H12.75C14.1307 4 15.25 5.11929 15.25 6.5V12.75C15.25 14.1307 14.1307 15.25 12.75 15.25Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_patient_management_system">
-                <use href="#ZB_Team_Patient_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Reimbursement_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M10 6.68563C10 5.95917 9.40119 5.375 8.66666 5.375H7.16566C6.52694 5.375 6.00799 5.89176 6.00799 6.52086C6.00799 7.20988 6.32734 7.44953 6.7984 7.60681L9.2016 8.39319C9.67266 8.55047 9.99201 8.79761 9.99201 9.47914C9.99201 10.1157 9.47304 10.625 8.83432 10.625H7.33334C6.59881 10.625 6 10.0408 6 9.31437M8 4.15V5.375M8 10.625V11.85M15.1027 6.53887C14.4267 3.23517 11.5036 0.75 8 0.75C3.99594 0.75 0.75 3.99594 0.75 8C0.75 12.0041 3.99594 15.25 8 15.25C11.0031 15.25 13.614 13.3521 14.7146 10.75M15.25 13.25V10.75H12.75"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_reimbursement_claims">
-                <use href="#ZB_Team_Reimbursement_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Testimonials_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M10.7401 9.92991C9.7313 9.20923 8.2064 8.75003 6.5 8.75003C3.46243 8.75003 1 10.2051 1 12C1 13.795 3.46243 15.25 6.5 15.25C6.66431 15.25 6.82693 15.2458 6.98758 15.2374M10.4988 13.5833H9.8075C9.62514 13.5833 9.5 13.4449 9.5 13.2755V12.8912C9.5 12.7218 9.62514 12.5833 9.8075 12.5833H10.1925C10.3617 12.5833 10.5 12.7218 10.5 12.8912V13.5833C10.5 14.6951 10.3337 14.8789 9.83331 15.25M12.9988 13.5833H12.3075C12.1251 13.5833 12 13.4449 12 13.2755V12.8912C12 12.7218 12.1251 12.5833 12.3075 12.5833H12.6925C12.8617 12.5833 13 12.7218 13 12.8912V13.5833C13 14.6951 12.8337 14.8789 12.3333 15.25M9.625 3.875C9.625 5.60089 8.22589 7 6.5 7C4.77411 7 3.375 5.60089 3.375 3.875C3.375 2.14911 4.77411 0.75 6.5 0.75C8.22589 0.75 9.625 2.14911 9.625 3.875Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 14 16" id="ZB_customer_testimonials">
-                <use href="#ZB_Team_Testimonials_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Order_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M10.5 5.25V3.75C10.5 2.09315 9.15685 0.75 7.49999 0.75C5.84314 0.75 4.49999 2.09314 4.49999 3.75V5.25M4.99999 10.2289L6.6 12L9.99999 8.5M11.0202 15.25H3.97975C2.75699 15.25 1.7203 14.3787 1.54738 13.2058L0.775156 7.96767C0.563696 6.53331 1.71229 5.25 3.20753 5.25H11.7925C13.2877 5.25 14.4363 6.53331 14.2248 7.96767L13.4526 13.2058C13.2797 14.3787 12.243 15.25 11.0202 15.25Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 15 16" id="ZB_order_fulfillment">
-                <use href="#ZB_Team_Order_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Donations_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M9.24935 12.0298L13.7648 10.5516C14.3389 10.3533 15.0088 10.7498 15.2002 11.3447C15.3916 11.9395 15.0088 12.6334 14.4347 12.8317L8.11868 15.0127C7.25738 15.3101 6.39615 15.3101 5.53485 15.1118L0.75 13.9222M9.24935 12.0298C9.15407 12.5305 8.67758 12.831 8.20108 12.7308L4.77029 11.9296M9.24935 12.0298C9.34463 11.5291 9.05875 11.1285 8.58225 10.9282C8.58225 10.9282 6.39036 9.62628 5.53263 9.12555C4.77024 8.62482 3.81724 8.62482 3.05485 9.12555L0.75002 10.6393M0.75001 9V15M13.4956 1.32858C13.1112 0.94286 12.6307 0.75 12.1502 0.75C11.6698 0.75 11.1893 0.94287 10.8049 1.32858L10.0361 2.10001L9.26734 1.32858C8.88293 0.94286 8.40245 0.75 7.92197 0.75C7.44149 0.75 6.96101 0.94287 6.5766 1.32858C5.80784 2.10001 5.80784 3.25715 6.5766 4.02858L7.34536 4.80001L10.036 7.50001L12.7267 4.80001L13.4955 4.02858C14.1682 3.25716 14.1682 2.00359 13.4956 1.32858Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_nonprofits_donations">
-                <use href="#ZB_Team_Donations_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Software_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M10.5473 9.95946L12.5067 8L10.5473 6.04054M5.4527 6.04054L3.49323 8L5.4527 9.95946M7.39145 10.2712L8.60858 5.72877M11.25 15.25H4.75C2.54086 15.25 0.75 13.4591 0.75 11.25V4.75C0.75 2.54086 2.54086 0.75 4.75 0.75H11.25C13.4591 0.75 15.25 2.54086 15.25 4.75V11.25C15.25 13.4591 13.4591 15.25 11.25 15.25Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_software_consulting">
-                <use href="#ZB_Team_Software_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Recruitment_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M2.56 11.03C3.32 9.68 4.91 8.75 6.75 8.75C8.59 8.75 10.18 9.68 10.94 11.03M12.75 12.75L15.25 15.25M6.75 12.75C3.43629 12.75 0.75 10.0637 0.75 6.75001C0.75 3.43629 3.4363 0.75 6.75 0.75C10.0637 0.75 12.75 3.43629 12.75 6.74999C12.75 10.0637 10.0637 12.75 6.75 12.75ZM6.75 3.5C5.7835 3.5 5 4.2835 5 5.25C5 6.2165 5.7835 7 6.75 7C7.7165 7 8.5 6.2165 8.5 5.25C8.5 4.2835 7.7165 3.5 6.75 3.5Z"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 16 16" id="ZB_recruitment">
-                <use href="#ZB_Team_Recruitment_ref"></use>
-            </symbol>
-
-            <g id="ZB_Team_Refund_ref" fill="none">
-                <path class="stroke-icons"
-                    d="M7.386 0.75L6.00484 2.62013C6.48488 2.50886 6.98546 2.45 7.5 2.45C11.0898 2.45 14 5.31538 14 8.85C14 12.3846 11.0898 15.25 7.5 15.25C3.91015 15.25 1 12.3846 1 8.85C1 7.45837 1.4511 6.17049 2.21718 5.12037M9.5 7.53563C9.5 6.80917 8.90119 6.225 8.16666 6.225H6.66566C6.02694 6.225 5.50799 6.74176 5.50799 7.37086C5.50799 8.05988 5.82734 8.29953 6.2984 8.45681L8.7016 9.24319C9.17266 9.40047 9.49201 9.64761 9.49201 10.3291C9.49201 10.9657 8.97304 11.475 8.33432 11.475H6.83334C6.09881 11.475 5.5 10.8908 5.5 10.1644M7.5 5V6.225M7.5 11.475V12.7"
-                    stroke="#4B556E" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </g>
-
-            <symbol viewBox="0 0 15 16" id="ZB_refund_processing">
-                <use href="#ZB_Team_Refund_ref"></use>
-            </symbol>
-
-
-        </svg>
+        <div class="helpdoc-propeties-sec flexcolumn p20 pT15">
+            <div class="m0 icon-title mB10">Icons</div>
+            <div class="flexcolumnchild">
+                <ul id="iconsCategory" class="helpdoc-icon-list flexDirColumn">
+                    <!-- <% iconsCategory.forEach(function(icon) {%>
+                    <li class="left-sec-btn-categ {{if(selectedCategory === icon.api_name, 'categ-active')}}"
+                        onclick="{{action ('changeIconCategory', icon)}}">
+                        <span class="helpdoc-icon-name">{{icon.name}}</span>
+                    </li>
+                    <% }) %> -->
+                </ul>
+            </div>
+        </div>
+        <div class="icon-list-wrapper p20 pT15">
+            <div id="add-new-icon" onclick="addNewIcon()">Add new icon</div>
+            <div class="helpdoc-icon-category" id="icons-display"></div>
+        </div>
+        <div class="icon-detail-wrapper dN p20 pT15 flexDirColumn">
+            <svg class="svg-icons zb10" style="position: absolute;right: 20px;top: 20px;cursor: pointer;" onclick="closeIconPreview()">
+                <use href="#ZB_Close"></use>
+            </svg>
+            <div class="pB40 headM">Data</div>
+            <div class="helpdoc-icon-item preview mB40">
+            </div>
+            <div class="helpdoc-icon-name mB40">
+                <span class="headS pB20 mR5">Icon Name:</span>
+                <span class="selected-icon-name"></span>
+            </div>
+            <pre class="code-snippet">
+            <div class="flex-center-v mB8">  
+                <span class="taskbar"> 
+                    <span class="barOne bar"></span>
+                    <span class="barTwo bar"></span>
+                    <span class="barThree bar"></span>
+                </span> 
+                <span class="mLauto mR5 icon-hover-dark-parent cP" lt-prop-title="Copy" onclick="{{action('copySampleDataCode')}}">  
+                    <ux-icons icon-name="ZB_Copy" icon-class="zb16 hd-copy-codesnip-icon icon-hover-dark"></ux-icons>
+                    <!-- <i class="bigin-sprite icon-copy-sm icon-copy-sm-mask hd-copy-codesnip-icon icon-hover-dark"></i> -->
+                </span>
+            </div>
+            <code id="dataSecCodeSnippet">
+                <span class="token punctuation">&lt;</span>
+                <span class="token tag">ux-icons</span> 
+                <span class="token attrname">icon-name =</span>
+                <span class="token punctuation">"</span>
+                <span class="token attrvalue">{{selectedIcon.iconName}}</span>
+                <span class="token punctuation">"</span>
+                <span class="token punctuation">&lt;/</span>
+                <span class="token tag">ux-icons</span>
+                <span class="token punctuation">&gt;</span>
+            </code>
+        </pre>
+        </div>
     </div>
-
-    <div id="iconsDisplayArea" style="display: flex;flex-wrap: wrap;width: 100%;"></div>
-
-    <div id="darkModeBtn" style="cursor: pointer;margin-top: 20px;">Dark Mode</div>
 
 
     <script>
-        const iconsArea = document.getElementById('iconsDisplayArea');
-        const icons = [
-            {iconName: 'ZB_Notifications', iconsClass: 'zb30'},
-            {iconName: 'ZB_Signals', iconsClass: 'zb30'},
-            {iconName: 'ZB_education', iconsClass: 'zb30'},
-            {iconName: 'ZB_customer_onboarding', iconsClass: 'zb30'},
-            {iconName: 'ZB_employee_onboarding', iconsClass: 'zb30'},
-            {iconName: 'ZB_startup_fundraising', iconsClass: 'zb30'},
-            {iconName: 'ZB_real_estate', iconsClass: 'zb30'},
-            {iconName: 'ZB_legal', iconsClass: 'zb30'},
-            {iconName: 'ZB_content_planner', iconsClass: 'zb30'},
-            {iconName: 'ZB_insurance', iconsClass: 'zb30'},
-            {iconName: 'ZB_patient_referral_management', iconsClass: 'zb30'},
-            {iconName: 'ZB_project_tracker', iconsClass: 'zb30'},
-            {iconName: 'ZB_product_roadmap', iconsClass: 'zb30'},
-            {iconName: 'ZB_sales_pipeline', iconsClass: 'zb30'},
-            {iconName: 'ZB_press_release', iconsClass: 'zb30'},
-            {iconName: 'ZB_patient_management_system', iconsClass: 'zb30'},
-            {iconName: 'ZB_reimbursement_claims', iconsClass: 'zb30'},
-            {iconName: 'ZB_customer_testimonials', iconsClass: 'zb30'},
-            {iconName: 'ZB_order_fulfillment', iconsClass: 'zb30'},
-            {iconName: 'ZB_nonprofits_donations', iconsClass: 'zb30'},
-            {iconName: 'ZB_software_consulting', iconsClass: 'zb30'},
-            {iconName: 'ZB_recruitment', iconsClass: 'zb30'},
-            {iconName: 'ZB_refund_processing', iconsClass: 'zb30'},
-        ]
-        const darkModeBtn = document.getElementById('darkModeBtn');
-        darkModeBtn.addEventListener('click', () => {
-            iconsArea.classList.toggle('dark-mode-bg');
-            darkModeBtn.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
-        });
-        iconsArea.innerHTML = icons.map(icon => {
-            return `<div class="icon-container" style="display: flex;flex-direction: column;align-items: center;margin: 10px;width:200px;">
-                        <svg class="svg-icons ${icon.iconsClass}">
-                            <use href="#${icon.iconName}"></use>
-                        </svg>
-                        <div style="margin-top: 10px;">${icon.iconName}</div>
-                    </div>`;
-        }).join('');
+        const addNewIconBtn = document.getElementById('add-new-icon');
+        const svgContainer = document.getElementById('svg-container');
+        const svgCodeContainer = document.getElementById('svg-code-generator');
+        const iconsListParent = document.getElementById('icons-list-parent');
+        const iconsDisplay = document.getElementById('icons-display');
+        var categorySelect = document.getElementById('icon-category');
+        var newCategoryInput = document.getElementById('new-category-input');
+        var iconsAdded = [];
+        var iconSourceHTML='';
+        var iconsArrayLatest = JSON.parse(JSON.stringify(iconsArray));
+        svgContainer.innerHTML = uxIconsHTML;
+        displayIcons();
+
+        // function jsToJsonCompatible(jsStr) {
+        //     return jsStr
+        //         .replace(/([{,])\s*(\w+)\s*:/g, '$1 "$2":')     // Quote keys
+        //         .replace(/'/g, '"')                             // Convert single quotes to double
+        //         .replace(/,\s*([}\]])/g, '$1')                  // Remove trailing commas
+        //         .replace(/\/\/.*$/gm, '');                      // Remove comments
+        // }
+
+        async function uploadFileToGitHub(svgCode) {
+            
+            const token = prompt("🔒 Paste your GitHub token (not saved anywhere):");
+            if (!token || token.includes('ghp_') === false) {
+                alert("❌ Invalid or missing token.");
+                return;
+            }
+
+            iconSourceHTML = `<template tag-name="ux-icons-holder"> \n ${uxIconsHTML.replace('//add-here', svgCode)} \n </template>`;
+            svgCode += `//update-here`; // Placeholder for appending to icons file
+            var updatedIconSVG = `var uxIconsHTML = \`${uxIconsHTML.replace('//add-here', svgCode)}\``;
+            updatedIconSVG = updatedIconSVG.replace('//update-here', '//add-here'); // Remove placeholder
+
+            var duplicateIcons =[];
+            if(categorySelect.value != 'new') {
+                    for(var i =0; i< iconsArray.length; i++){
+                        var icon = iconsArray[i];
+                    if (icon.api_name === categorySelect.value) {
+                        iconsAdded.forEach((iconName) => {
+                                icon.icons.push({
+                                    iconName: iconName,
+                                    iconClass: 'zb30'
+                                });
+                        });
+                        break;
+                    }
+                };
+            } else {
+                iconsArray.push({
+                    name: newCategoryInput.value,
+                    api_name: newCategoryInput.value.toLowerCase().replace(/\s+/g, '_'),
+                    icons: iconsAdded.map(iconName => ({
+                        iconName: iconName,
+                        iconClass: 'zb30'
+                    }))
+                })
+            }
+            displayIcons();
+            const owner = 'Zohocorp-Pvt-Ltd';
+            const repo = 'Bigin-UI-Team';
+            const branch = 'main';
+
+            const files = [
+                {
+                    path: 'dist/icons-array.js',
+                    content: `var iconsArray = ${JSON.stringify(iconsArray)}`
+                },
+                {
+                    path: 'dist/ux-icons-holder.js',
+                    content: updatedIconSVG
+                },
+                {
+                    path: 'icon-source/ux-icons-holder.html',
+                    content: iconSourceHTML
+                }
+            ];
+
+            const headers = {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/vnd.github+json'
+            };
+
+            const api = async (url, options = {}) => {
+                const res = await fetch(url, { headers, ...options });
+                const json = await res.json();
+                if (!res.ok) throw new Error(`${options.method || 'GET'} ${url} failed: ${JSON.stringify(json)}`);
+                return json;
+            };
+
+            try {
+                // 1. Get latest commit and base tree
+                const refData = await api(`https://api.github.com/repos/${owner}/${repo}/git/ref/heads/${branch}`);
+                const latestCommitSha = refData.object.sha;
+
+                const commitData = await api(`https://api.github.com/repos/${owner}/${repo}/git/commits/${latestCommitSha}`);
+                const baseTreeSha = commitData.tree.sha;
+
+                // 2. Create blobs and build tree items
+                const treeItems = await Promise.all(files.map(async ({ path, content }) => {
+                    const blob = await api(`https://api.github.com/repos/${owner}/${repo}/git/blobs`, {
+                        method: 'POST',
+                        body: JSON.stringify({ content, encoding: 'utf-8' })
+                    });
+                    return { path, mode: '100644', type: 'blob', sha: blob.sha };
+                }));
+
+                // 3. Create new tree
+                const tree = await api(`https://api.github.com/repos/${owner}/${repo}/git/trees`, {
+                    method: 'POST',
+                    body: JSON.stringify({ base_tree: baseTreeSha, tree: treeItems })
+                });
+
+                // 4. Create new commit
+                const newCommit = await api(`https://api.github.com/repos/${owner}/${repo}/git/commits`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        message: 'Added new icons to source file',
+                        tree: tree.sha,
+                        parents: [latestCommitSha]
+                    })
+                });
+
+                // 5. Update ref
+                await api(`https://api.github.com/repos/${owner}/${repo}/git/refs/heads/${branch}`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ sha: newCommit.sha })
+                });
+
+                alert(`✅ icon${iconsAdded.length > 1 ? 's' : ''} added successfully!`);
+                iconsListParent.classList.toggle('dN');
+                svgCodeContainer.classList.toggle('dN');
+                if(uxIconsHTML.includes('//update-here')) {
+                    uxIconsHTML = uxIconsHTML.replace('//update-here', svgCode);
+                } else {
+                    uxIconsHTML = uxIconsHTML.replace('//add-here', svgCode);
+                }
+                uxIconsHTML = uxIconsHTML.replace('//update-here', '//add-here');
+                iconsArrayLatest = JSON.parse(JSON.stringify(iconsArray));
+            } catch (error) {
+                console.error("❌ GitHub upload failed:", error.message);
+                alert("❌ GitHub upload failed. Check console for details.");
+                iconsArray = JSON.parse(JSON.stringify(iconsArrayLatest));
+            }
+        }
+
+        function displayIcons() {
+            iconsDisplay.innerHTML = ''; // Clear previous icons
+            iconsArray.forEach(cat => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'helpdoc-icon-name pB12 headM';
+                categoryDiv.id = cat.api_name;
+                categoryDiv.textContent = cat.name;
+
+                const iconsContainer = document.createElement('div');
+                iconsContainer.className = 'flex';
+                iconsContainer.style.flexWrap = 'wrap';
+                iconsContainer.style.gap = '10px';
+
+                cat.icons.forEach(icon => {
+                    const iconItem = document.createElement('div');
+                    iconItem.className = `helpdoc-icon-item cP`;
+                    iconItem.innerHTML = `<svg class="svg-icons ${icon.iconClass}">
+                        <use href="#${icon.iconName}"></use>
+                    </svg>`;
+                    iconItem.addEventListener('click', () => {
+                        selectedIcon = icon;
+                        displaySelectedIcon();
+                    });
+                    iconsContainer.appendChild(iconItem);
+                });
+
+                categoryDiv.appendChild(iconsContainer);
+                iconsDisplay.appendChild(categoryDiv);
+            });
+        }
+        function displaySelectedIcon() {
+            var iconDetailWrapper = document.querySelector('.icon-detail-wrapper');
+            var previewItem = document.querySelector('.helpdoc-icon-item.preview');
+            var selectedIconName = document.querySelector('.selected-icon-name');
+            iconDetailWrapper.classList.remove('dN');
+            previewItem.innerHTML = `<svg class="svg-icons ${selectedIcon.iconClass}">
+                <use href="#${selectedIcon.iconName}"></use>
+            </svg>`;
+            selectedIconName.textContent = selectedIcon.iconName;
+        }
+        function closeIconPreview() {
+            document.querySelector('.icon-detail-wrapper').classList.add('dN');
+        }
+        function addNewIcon() {
+            iconsListParent.classList.toggle('dN');
+            svgCodeContainer.classList.toggle('dN');
+            svgCodeContainer.innerHTML = svgGeneratorContent;
+            if (!svgCodeContainer.classList.contains('dN')) {
+                initiateSVGCodeGenerator();
+            }
+        }
+
+
     </script>
 </body>
 
